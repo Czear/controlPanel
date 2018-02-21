@@ -1,31 +1,23 @@
 <form [formGroup]="singUpForm">
     <div class="form-group">
         <label for="singUpNickname">Login
-            <i      appValidationIcons
-                    *ngIf="checkIfTouched(singUpForm.get('singUpNickname'))"
-                    [inputValid]="singUpForm.get('singUpNickname').valid"></i></label>
+            <app-validation-icon [inputFormControl]="singUpForm.get('singUpNickname')"></app-validation-icon></label>
         <input id="singUpNickname" class="form-control" type="text" formControlName="singUpNickname">
 
     </div>
     <div class="form-group">
         <label for="singUpEmail">E-Mail
-            <i      appValidationIcons
-                    *ngIf="checkIfTouched(singUpForm.get('singUpEmail'))"
-                    [inputValid]="singUpForm.get('singUpEmail').valid"></i></label>
+            <app-validation-icon [inputFormControl]="singUpForm.get('singUpEmail')"></app-validation-icon></label>
         <input id="singUpEmail" class="form-control" type="text" formControlName="singUpEmail">
     </div>
     <div class="form-group">
         <label for="singUpPass">Password
-            <i      appValidationIcons
-                    *ngIf="checkIfTouched(singUpForm.get('singUpPass'))"
-                    [inputValid]="singUpForm.get('singUpPass').valid"></i></label>
+            <app-validation-icon [inputFormControl]="singUpForm.get('singUpPass')"></app-validation-icon></label>
         <input id="singUpPass" class="form-control" type="password" formControlName="singUpPass">
     </div>
     <div class="form-group">
         <label for="singUpPassConfirm">Confirm Password
-            <i      appValidationIcons
-                    *ngIf="checkIfTouched(singUpForm.get('singUpPassConfirm'))"
-                    [inputValid]="singUpForm.get('singUpPassConfirm').valid"></i></label>
+            <app-validation-icon [inputFormControl]="singUpForm.get('singUpPassConfirm')"></app-validation-icon></label>
         <input id="singUpPassConfirm" class="form-control" type="password" formControlName="singUpPassConfirm">
     </div>
     <button class="btn btn-success" type="button"

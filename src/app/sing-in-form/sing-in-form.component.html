@@ -1,19 +1,15 @@
-<form [formGroup]="singInForm" (submit)="onSubmit()">
+<form [formGroup]="singInForm">
 
   <div class="form-group">
     <label for="singInNickname">Login
-      <i      appValidationIcons
-              *ngIf="checkIfTouched(singInForm.get('singInNickname'))"
-              [inputValid]="singInForm.get('singInNickname').valid"></i>
+      <app-validation-icon [inputFormControl]="singInForm.get('singInNickname')"></app-validation-icon>
     </label>
     <input id="singInNickname" class="form-control"  type="text" formControlName="singInNickname">
   </div>
 
   <div class="form-group">
     <label for="singInPass">Password
-      <i appValidationIcons
-         *ngIf="checkIfTouched(singInForm.get('singInPass'))"
-         [inputValid]="singInForm.get('singInPass').valid"></i>
+      <app-validation-icon [inputFormControl]="singInForm.get('singInPass')"></app-validation-icon>
     </label>
     <input id="singInPass" class="form-control" type="password" formControlName="singInPass">
   </div>

@@ -18,7 +18,4 @@ export class SingUpFormComponent implements OnInit {
         'singUpPassConfirm': new FormControl(null, Validators.required)
     });
   }
-    checkIfTouched(input: FormControl) {
-        return ( input.touched || input.dirty);
-    }
 }

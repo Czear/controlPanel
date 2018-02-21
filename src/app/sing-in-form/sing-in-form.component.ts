@@ -16,10 +16,4 @@ export class SingInFormComponent implements OnInit {
           'singInPass': new FormControl(null, Validators.required),
       });
   }
-    checkIfTouched(input: FormControl) {
-        return ( input.touched || input.dirty);
-    }
-    onSubmit(f: FormControl) {
-      console.log('success');
-  }
 }

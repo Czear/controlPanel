@@ -7,7 +7,7 @@ import { SingUpFormComponent } from './sing-up-form/sing-up-form.component';
 import { SingInFormComponent } from './sing-in-form/sing-in-form.component';
 import {ReactiveFormsModule} from '@angular/forms';
 import { NotAllowedCursorDirective } from './directives/not-allowed-cursor.directive';
-import { ValidationIconsDirective } from './directives/validation-icons.directive';
+import { ValidationIconComponent } from './validation-icon/validation-icon.component';
 
 
 @NgModule({
@@ -16,7 +16,7 @@ import { ValidationIconsDirective } from './directives/validation-icons.directiv
     SingUpFormComponent,
     SingInFormComponent,
     NotAllowedCursorDirective,
-    ValidationIconsDirective
+    ValidationIconComponent
   ],
   imports: [
     BrowserModule,
