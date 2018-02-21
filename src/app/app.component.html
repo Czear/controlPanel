@@ -1,0 +1,19 @@
+<nav class="navbar navbar-light bg-light">
+    <a class="navbar-brand" href="#">
+            Main Board
+    </a>
+</nav>
+
+<div class="container ">
+    <div class="row justify-content-around">
+        <div class="col-4 col-sm-4" *ngIf="helper">
+            <app-sing-in-form></app-sing-in-form>
+        </div>
+
+        <div class="col-4 col-sm-4" *ngIf="!helper">
+            <app-sing-up-form></app-sing-up-form>
+        </div>
+        <button class="btn btn-info" (click)="toggle()" style="margin-top: 20px">Toggle</button>
+    </div>
+
+</div>
