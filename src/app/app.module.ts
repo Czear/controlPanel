@@ -8,7 +8,7 @@ import { SingInFormComponent } from './sing-in-form/sing-in-form.component';
 import {ReactiveFormsModule} from '@angular/forms';
 import { NotAllowedCursorDirective } from './directives/not-allowed-cursor.directive';
 import { ValidationIconComponent } from './validation-icon/validation-icon.component';
-import { NoteWidgetComponent } from './note-widget/note-widget.component';
+import { WidgetComponent } from './widget/widget.component';
 
 
 @NgModule({
@@ -18,7 +18,7 @@ import { NoteWidgetComponent } from './note-widget/note-widget.component';
     SingInFormComponent,
     NotAllowedCursorDirective,
     ValidationIconComponent,
-    NoteWidgetComponent
+    WidgetComponent
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,16 @@
+.card-block{
+    padding: 4%;
+}
+
+.card{
+    margin: 10px 0 20px 0;
+}
+
+.cardIcons{
+    float: right;
+}
+
+i{
+    cursor: pointer;
+    margin-left: 4px;
+}

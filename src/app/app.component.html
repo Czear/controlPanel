@@ -4,24 +4,13 @@
 
 <div class="container-fluid">
      <div class="container">
-        <div class="row">
-            <div class="col">
-                <div class="widget">
-                    <app-note-widget [noteData]="left"></app-note-widget>
+        <div class="row justify-content-around">
+                <div class="col">
+                    <app-widget *ngFor="let widget of firstColumnWidgets " [widgetData]="widget"></app-widget>
                 </div>
-                <div class="widget">
-                    <app-note-widget [noteData]="left"></app-note-widget>
+                <div class="col">
+                    <app-widget *ngFor="let widget of secondColumnWidgets" [widgetData]="widget"></app-widget>
                 </div>
-            </div>
-            <div class="col">
-                <div class="widget">
-                    <app-note-widget [noteData]="right"></app-note-widget>
-                </div>
-                <div class="widget">
-                    <app-note-widget [noteData]="right"></app-note-widget>
-                </div>
-            </div>
-
         </div>
      </div>
 </div>
