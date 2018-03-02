@@ -4,13 +4,18 @@
 
 .card{
     margin: 10px 0 20px 0;
+
 }
 
 .cardIcons{
     float: right;
 }
 
+.card-text{
+
+}
+
 i{
     cursor: pointer;
-    margin-left: 4px;
+
 }

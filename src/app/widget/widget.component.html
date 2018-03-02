@@ -1,15 +1,15 @@
 <div class="card">
   <div class="card-header">
-    {{widgetData.title}}
-    <span class="cardIcons">
+      <span class="cardIcons">
       <i class="fa fa-pencil" aria-hidden="true" (click)="editWidget(widgetData.index)"></i>
       <i class="fa fa-times" aria-hidden="true" (click)="destroyWidget(widgetData.index)"></i>
     </span>
+      <span>{{widgetData.title}}</span>
   </div>
   <div class="card-block text-center">
     <p class="card-text">{{widgetData.text}}</p>
   </div>
-  <div class="card-footer text-muted" *ngIf="widgetData.date">
-    {{widgetData.date | date:'shortDate'}}
+  <div class="card-footer text-muted text-lg-center" *ngIf="widgetData.date">
+      <span>{{widgetData.date | date:'mediumDate'}}</span>
   </div>
 </div>

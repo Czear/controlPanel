@@ -10,20 +10,24 @@ import { Subscription } from 'rxjs/Subscription';
 })
 export class AppComponent implements OnInit {
     widgetData;
-    private subscription: Subscription;
     firstColumnWidgets = [];
     secondColumnWidgets = [];
-
+    addWidgetMode;
     constructor(private widgetServiceData: WidgetDataService) {
     }
     ngOnInit() {
         this.widgetData = this.widgetServiceData.data;
         this.buildWidgets();
-        this.subscription = this.widgetServiceData.dataChanges
+        this.widgetServiceData.dataChanges
             .subscribe(
                 (data) => {
                     this.widgetData = data;
                     this.buildWidgets();
+                });
+        this.widgetServiceData.addMode
+            .subscribe(
+                (data) => {
+                    this.addWidgetMode = data;
                 });
     }
     buildWidgets() {
@@ -38,5 +42,10 @@ export class AppComponent implements OnInit {
             }
         });
     }
-
+    isMobile() {
+         return window.innerWidth < 600;
+    }
+    toggleNewWidgetForm() {
+        this.widgetServiceData.toggleAddMode();
+    }
 }

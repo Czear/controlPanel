@@ -1,4 +1,4 @@
-body{
+body {
     background-color: #e0e0e0;
 }
 
@@ -6,6 +6,15 @@ h2{
     margin: auto;
 }
 
+i{
+    font-size: 35px;
+    cursor: pointer;
+}
 
+.newWidgetForm{
+    margin-top: 80px;
+}
 
-
+.row:not(:first-child){
+    filter:blur(5px);
+}

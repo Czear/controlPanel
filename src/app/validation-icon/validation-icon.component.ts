@@ -19,6 +19,6 @@ export class ValidationIconComponent implements DoCheck {
         } else {
             this.classesToAttach = 'fa fa-times-circle text-danger';
         }
-        if (!this.isVisible) {this.isVisible = ( this.inputFormControl.touched || this.inputFormControl.dirty)};
+        if (!this.isVisible) {this.isVisible = ( this.inputFormControl.touched || this.inputFormControl.dirty); }
   }
 }

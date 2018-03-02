@@ -1,16 +1,26 @@
 <nav class="navbar navbar-light bg-light">
+    <i class="fa fa-plus-square" aria-hidden="true" (click)="toggleNewWidgetForm()"></i>
     <h2>Control Panel</h2>
+    <i class="fa fa-sign-out" aria-hidden="true"></i>
 </nav>
 
-<div class="container-fluid">
-     <div class="container">
-        <div class="row justify-content-around">
-                <div class="col">
-                    <app-widget *ngFor="let widget of firstColumnWidgets " [widgetData]="widget"></app-widget>
+    <div class="container">
+
+        <div class="newWidgetForm row justify-content-center fixed-top" *ngIf="addWidgetMode">
+            <div class="col-9 col-xl-6">
+                <app-new-widget-form></app-new-widget-form>
+            </div>
+        </div>
+
+        <div class="row justify-content-center">
+                <div class="col-5" *ngIf="!isMobile()">
+                    <app-widget *ngFor="let widget of firstColumnWidgets" [widgetData]="widget"></app-widget>
                 </div>
-                <div class="col">
-                    <app-widget *ngFor="let widget of secondColumnWidgets" [widgetData]="widget"></app-widget>
+                <div class="col-5" *ngIf="!isMobile()">
+                    <app-widget *ngFor="let widget of secondColumnWidgets " [widgetData]="widget"></app-widget>
+                </div>
+                <div class="col-9" *ngIf="isMobile()">
+                    <app-widget *ngFor="let widget of widgetData " [widgetData]="widget"></app-widget>
                 </div>
         </div>
      </div>
-</div>

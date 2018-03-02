@@ -13,7 +13,6 @@ export class WidgetComponent {
         this.widgetServiceData.removeWidget(index);
     }
     editWidget(index) {
-        console.log(index);
-    }
 
+    }
 }

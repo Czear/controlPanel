@@ -1,0 +1,33 @@
+<div class="card">
+    <div class="card-header text-center">
+      New widget
+    </div>
+    <div class="card-body">
+        <form [formGroup]="WidgetForm" #f (ngSubmit)="addNewWidget(f)">
+            <div class="form-group">
+                <label for="WidgetFormTitle">Title
+                        <app-validation-icon [inputFormControl]="WidgetForm.get('WidgetFormTitle')"></app-validation-icon>
+                </label>
+                    <input id="WidgetFormTitle" class="form-control" formControlName="WidgetFormTitle">
+            </div>
+
+            <div class="form-group">
+                <label for="WidgetFormDate">Date
+                    <app-validation-icon [inputFormControl]="WidgetForm.get('WidgetFormDate')"></app-validation-icon>
+                </label>
+                <input id="WidgetFormDate" class="form-control" formControlName="WidgetFormDate" placeholder="Not requied">
+            </div>
+
+            <div class="form-group">
+                <label for="WidgetFormContent">Content
+                    <app-validation-icon [inputFormControl]="WidgetForm.get('WidgetFormContent')"></app-validation-icon>
+                </label>
+                <textarea rows="6" id="WidgetFormContent" class="form-control" formControlName="WidgetFormContent"></textarea>
+            </div>
+                <button class="btn btn-success"
+                        type="submit"
+                        [isValid] = "WidgetForm.valid"
+                        appNotAllowedCursor>Create</button>
+        </form>
+    </div>
+</div>
