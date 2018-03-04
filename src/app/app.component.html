@@ -6,8 +6,8 @@
 
     <div class="container">
 
-        <div class="newWidgetForm row justify-content-center fixed-top" *ngIf="addWidgetMode">
-            <div class="col-9 col-xl-6">
+        <div class="row justify-content-center" *ngIf="addWidgetMode">
+            <div class="col-10 col-xl-4 position-absolute newWidgetForm">
                 <app-new-widget-form></app-new-widget-form>
             </div>
         </div>
@@ -17,10 +17,10 @@
                     <app-widget *ngFor="let widget of firstColumnWidgets" [widgetData]="widget"></app-widget>
                 </div>
                 <div class="col-5" *ngIf="!isMobile()">
-                    <app-widget *ngFor="let widget of secondColumnWidgets " [widgetData]="widget"></app-widget>
+                    <app-widget *ngFor="let widget of secondColumnWidgets" [widgetData]="widget"></app-widget>
                 </div>
                 <div class="col-9" *ngIf="isMobile()">
-                    <app-widget *ngFor="let widget of widgetData " [widgetData]="widget"></app-widget>
+                    <app-widget *ngFor="let widget of widgetData" [widgetData]="widget"></app-widget>
                 </div>
         </div>
      </div>

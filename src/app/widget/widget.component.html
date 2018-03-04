@@ -1,15 +1,48 @@
-<div class="card">
+<div class="card" *ngIf="!editMode">
   <div class="card-header">
-      <span class="cardIcons">
-      <i class="fa fa-pencil" aria-hidden="true" (click)="editWidget(widgetData.index)"></i>
+      <span class="ico">
+      <i class="fa fa-pencil" aria-hidden="true" (click)="toggleEditMode()"></i>
       <i class="fa fa-times" aria-hidden="true" (click)="destroyWidget(widgetData.index)"></i>
     </span>
       <span>{{widgetData.title}}</span>
   </div>
   <div class="card-block text-center">
-    <p class="card-text">{{widgetData.text}}</p>
+    <p class="card-text">{{widgetData.content}}</p>
   </div>
-  <div class="card-footer text-muted text-lg-center" *ngIf="widgetData.date">
+  <div class="card-footer text-muted text-center" *ngIf="widgetData.date">
       <span>{{widgetData.date | date:'mediumDate'}}</span>
   </div>
 </div>
+<div class="card" *ngIf="editMode">
+    <form [formGroup]="editForm">
+        <div class="card-header">
+            <span class="ico">
+                  <i class="fa fa-floppy-o" aria-hidden="true" (click)="saveWidgetChanges()"></i>
+                  <i class="fa fa-undo" aria-hidden="true" (click)="toggleEditMode()"></i>
+              </span>
+            <div class="form-group">
+                <textarea id="editTitle" class="form-control"  type="text" formControlName="editTitle"></textarea>
+                <app-validation-icon [inputFormControl]="editForm.get('editTitle')"></app-validation-icon>
+            </div>
+        </div>
+
+        <div class="card-block text-center">
+            <div class="form-group">
+                <textarea id="editContent" class="form-control"  type="text" formControlName="editContent"></textarea>
+                <app-validation-icon [inputFormControl]="editForm.get('editContent')"></app-validation-icon>
+            </div>
+        </div>
+
+            <div class="card-footer text-muted text-center" *ngIf="widgetData.date">
+                <div class="form-group">
+                    <textarea id="editDate" class="form-control"  type="text" formControlName="editDate"></textarea>
+                    <app-validation-icon [inputFormControl]="editForm.get('editDate')"></app-validation-icon>
+                </div>
+            </div>
+    </form>
+</div>
+
+
+
+
+

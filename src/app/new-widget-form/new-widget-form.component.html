@@ -1,6 +1,9 @@
 <div class="card">
     <div class="card-header text-center">
-      New widget
+        New widget
+        <span class="ico">
+            <i class="fa fa-times" aria-hidden="true" (click)="closeWidgetForm()"></i>
+        </span>
     </div>
     <div class="card-body">
         <form [formGroup]="WidgetForm" #f (ngSubmit)="addNewWidget(f)">
