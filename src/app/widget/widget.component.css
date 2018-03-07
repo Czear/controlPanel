@@ -7,6 +7,16 @@
 
 }
 
-textarea {
-    width: 50%;
+input, textarea {
+    width: calc(95% - 45px);
+}
+
+#editTitle {
+    width: calc(88% - 45px);
+}
+
+.hidden{
+    border: none;
+    background: transparent;
+    cursor: pointer;
 }

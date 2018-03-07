@@ -10,33 +10,43 @@
     <p class="card-text">{{widgetData.content}}</p>
   </div>
   <div class="card-footer text-muted text-center" *ngIf="widgetData.date">
-      <span>{{widgetData.date | date:'mediumDate'}}</span>
+      <span>{{widgetData.date }}</span>
   </div>
 </div>
 <div class="card" *ngIf="editMode">
-    <form [formGroup]="editForm">
+    <form [formGroup]="editForm" (ngSubmit)="saveEditedWidgetChanges()">
         <div class="card-header">
             <span class="ico">
-                  <i class="fa fa-floppy-o" aria-hidden="true" (click)="saveWidgetChanges()"></i>
-                  <i class="fa fa-undo" aria-hidden="true" (click)="toggleEditMode()"></i>
+                <app-validation-icon [inputFormControl]="editForm.get('editTitle')"></app-validation-icon>
+                    <button
+                            class="hidden"
+                            type="submit"
+                            [isValid] = "editForm.valid"
+                            appNotAllowedCursor>
+                        <i class="fa fa-floppy-o" aria-hidden="true"></i>
+                    </button>
+                    <i class="fa fa-undo" aria-hidden="true" (click)="toggleEditMode()"></i>
               </span>
             <div class="form-group">
-                <textarea id="editTitle" class="form-control"  type="text" formControlName="editTitle"></textarea>
-                <app-validation-icon [inputFormControl]="editForm.get('editTitle')"></app-validation-icon>
+                <input id="editTitle" class="form-control"  type="text" formControlName="editTitle">
             </div>
         </div>
 
         <div class="card-block text-center">
             <div class="form-group">
-                <textarea id="editContent" class="form-control"  type="text" formControlName="editContent"></textarea>
-                <app-validation-icon [inputFormControl]="editForm.get('editContent')"></app-validation-icon>
+                <span class="ico">
+                    <app-validation-icon [inputFormControl]="editForm.get('editContent')"></app-validation-icon>
+                </span>
+                <textarea id="editContent" class="form-control" rows="5"  type="text" formControlName="editContent"></textarea>
             </div>
         </div>
 
-            <div class="card-footer text-muted text-center" *ngIf="widgetData.date">
+            <div class="card-footer text-muted text-center">
                 <div class="form-group">
-                    <textarea id="editDate" class="form-control"  type="text" formControlName="editDate"></textarea>
-                    <app-validation-icon [inputFormControl]="editForm.get('editDate')"></app-validation-icon>
+                    <span class="ico">
+                        <app-validation-icon [inputFormControl]="editForm.get('editDate')"></app-validation-icon>
+                    </span>
+                    <input id="editDate" class="form-control"  type="text" formControlName="editDate">
                 </div>
             </div>
     </form>

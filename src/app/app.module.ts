@@ -10,6 +10,7 @@ import { NotAllowedCursorDirective } from './directives/not-allowed-cursor.direc
 import { ValidationIconComponent } from './validation-icon/validation-icon.component';
 import { WidgetComponent } from './widget/widget.component';
 import { NewWidgetFormComponent } from './new-widget-form/new-widget-form.component';
+import {HttpClientModule} from '@angular/common/http';
 
 
 @NgModule({
@@ -24,7 +25,8 @@ import { NewWidgetFormComponent } from './new-widget-form/new-widget-form.compon
   ],
   imports: [
     BrowserModule,
-      ReactiveFormsModule
+      ReactiveFormsModule,
+      HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

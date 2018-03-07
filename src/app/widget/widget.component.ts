@@ -21,7 +21,7 @@ export class WidgetComponent {
         this.buildEditForm();
       }
     }
-    saveWidgetChanges() {
+    saveEditedWidgetChanges() {
         this.toggleEditMode();
         this.widgetServiceData.editWidget(
             this.widgetData.index,
@@ -30,21 +30,13 @@ export class WidgetComponent {
                 this.editForm.get('editContent').value,
                 this.editForm.get('editDate').value));
     }
-    convertDateToFormState(dateObj) {
-        console.log(dateObj);
-        if (dateObj) {
-            let month = dateObj.getMonth();
-            month++;
-            console.log (dateObj.getDate() + '.' + month  + '.' + dateObj.getFullYear());
-            return dateObj.getDate() + '.' + month  + '.' + dateObj.getFullYear();
-        }
-        return null;
-    }
     buildEditForm() {
         this.editForm = new FormGroup({
             'editTitle': new FormControl(this.widgetData.title, Validators.required),
             'editContent': new FormControl(this.widgetData.content, Validators.required),
-            'editDate': new FormControl(this.convertDateToFormState(this.widgetData.date), Validators.required)
+            'editDate': new FormControl(
+                this.widgetServiceData.dateConverter(this.widgetData.date),
+                Validators.pattern(this.widgetServiceData.dateValidator))
         });
     }
 }

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators} from '@angular/forms';
-import {WidgetDataService} from '../services/widget-data.service';
+import { WidgetDataService } from '../services/widget-data.service';
 
 @Component({
   selector: 'app-new-widget-form',
@@ -10,24 +10,24 @@ import {WidgetDataService} from '../services/widget-data.service';
 export class NewWidgetFormComponent implements OnInit {
   WidgetForm: FormGroup;
 
-  constructor(private widgetServiceData: WidgetDataService) {}
+  constructor(private widgetData: WidgetDataService) {}
 
   ngOnInit() {
       this.WidgetForm = new FormGroup({
           'WidgetFormTitle': new FormControl(null, Validators.required),
           'WidgetFormContent': new FormControl(null, Validators.required),
-          'WidgetFormDate': new FormControl(null, Validators.pattern(this.widgetServiceData.dateValidator))
+          'WidgetFormDate': new FormControl(null, Validators.pattern(this.widgetData.dateValidator))
       });
   }
     addNewWidget(form) {
-      this.widgetServiceData.toggleAddMode();
-      this.widgetServiceData.addWidget(
-          this.widgetServiceData.dataNoteConversionToObject(
+      this.widgetData.toggleAddMode();
+      this.widgetData.addWidget(
+          this.widgetData.dataNoteConversionToObject(
               form.WidgetFormTitle.value,
               form.WidgetFormContent.value,
               form.WidgetFormDate.value));
     }
     closeWidgetForm() {
-        this.widgetServiceData.toggleAddMode();
+        this.widgetData.toggleAddMode();
     }
 }

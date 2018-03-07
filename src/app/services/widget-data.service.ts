@@ -1,25 +1,13 @@
 import { Injectable } from '@angular/core';
 import {Subject} from 'rxjs/Subject';
+import {HttpClient} from '@angular/common/http';
 
 
 @Injectable()
 export class WidgetDataService {
+    constructor(private httpClient: HttpClient) {}
     addWidgetMode = false;
-  /*data = [
-      {title: 'Legitimation', text: 'Stamp my ID card', date: new Date(2018, 3, 31)},
-      {title: 'Shopping list', text: 'Rice, Cooking Oil, Chicken Breast, Salt, Cola', date: new Date(2018, 2, 28)},
-      {title: 'Pc components list', text: 'RAM, GPU, CPU, Power supply, Cooler, SSD, HDD'},
-      {title: 'Money Plan', text: 'Remember to save 300', date: new Date(2018, 3, 20)}
-  ];*/
-    data = [
-        {title: 'Edit button', content: 'Make edit button working'},
-        {title: 'HTTP req', content: 'Start to use HTTP request'},
-        {title: 'Priority', content: 'Invent some priority system'},
-        {title: 'Auth', content: 'Start to use authentication system'},
-        {title: 'New Widgets', content: 'Implement new widgets'},
-        {title: 'Layout', content: 'Think about modern layout'},
-        {title: 'Test Date Widget', content: 'Test Date Content', date: new Date(1997, 7, 6)}
-    ];
+    data;
     dateValidator = new RegExp('^(?:(?:31(\\/|-|\\.)(?:0?[13578]|1[02]))\\1|(?:(?:29|30)(\\/|-|\\.)' +
         '(?:0?[1,3-9]|1[0-2])\\2))(?:(?:1[6-9]|[2-9]\\d)?\\d{2})$|^(?:29(\\/|-|\\.)0?2\\3(?:(?:(?:1[6-9]|[2-9]\\d)?(?:0[48]|[2468][048]|' +
         '[13579][26])|(?:(?:16|[2468][048]|[3579][26])00))))$|^(?:0?[1-9]|1\\d|2[0-8])(\\/|-|\\.)(?:(?:0?[1-9])' +
@@ -28,24 +16,34 @@ export class WidgetDataService {
     dataChanges = new Subject();
 
     addWidget(newObject) {
-        this.data.push(newObject);
+        this.pushObjToDataArray(newObject);
         this.dataChanges.next(this.data.slice());
+        this.putData().subscribe();
     }
 
     removeWidget(index) {
         this.data.splice(index, 1);
         this.dataChanges.next(this.data.slice());
+        this.putData().subscribe();
     }
 
     editWidget(index, newObject) {
         this.data[index] = newObject;
         this.dataChanges.next(this.data.slice());
+        this.putData().subscribe();
     }
     toggleAddMode() {
         this.addWidgetMode = !this.addWidgetMode;
         this.addMode.next(this.addWidgetMode);
     }
-    stringToDate(dateString) {
+    putData() {
+        return this.httpClient.put('https://controllpanel-5c8a6.firebaseio.com/data.json', this.data);
+    }
+    getData() {
+       return this.httpClient.get('https://controllpanel-5c8a6.firebaseio.com/data.json');
+    }
+    // Useful Functions
+    dateConverter(dateString) {
         if (dateString) {
             let separator;
             const SEPARATORS = ['.', '/', '-'];
@@ -55,7 +53,7 @@ export class WidgetDataService {
                 }
             }
             const DATEVARIABLES = dateString.split(separator);
-            return new Date(DATEVARIABLES[2], DATEVARIABLES[1] - 1, DATEVARIABLES[0]);
+            return DATEVARIABLES[0] + '.' + DATEVARIABLES[1] + '.' + DATEVARIABLES[2];
         }
         return '';
     }
@@ -63,11 +61,18 @@ export class WidgetDataService {
         const objToPush = {
             title: title,
             content: content,
-            date: this.stringToDate(date)
+            date: this.dateConverter(date)
         };
         if (!date) {
             delete objToPush['date'];
         }
         return objToPush;
     }
+    pushObjToDataArray(objToPush) {
+        if (this.data) {
+            this.data.push(objToPush);
+            } else {
+            this.data = [objToPush];
+        }
+}
 }
