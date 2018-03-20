@@ -1,10 +1,9 @@
-.card-block{
+.card-block {
     padding: 4%;
 }
 
-.card{
-    margin: 10px 0 20px 0;
-
+.dropHere {
+    height: 1%;
 }
 
 input, textarea {
@@ -15,7 +14,7 @@ input, textarea {
     width: calc(88% - 45px);
 }
 
-.hidden{
+.hidden {
     border: none;
     background: transparent;
     cursor: pointer;

@@ -6,15 +6,16 @@ import {HttpClient} from '@angular/common/http';
 @Injectable()
 export class WidgetDataService {
     constructor(private httpClient: HttpClient) {}
-    addWidgetMode = false;
     data;
+    isMobile;
+    addWidgetMode = false;
     dateValidator = new RegExp('^(?:(?:31(\\/|-|\\.)(?:0?[13578]|1[02]))\\1|(?:(?:29|30)(\\/|-|\\.)' +
         '(?:0?[1,3-9]|1[0-2])\\2))(?:(?:1[6-9]|[2-9]\\d)?\\d{2})$|^(?:29(\\/|-|\\.)0?2\\3(?:(?:(?:1[6-9]|[2-9]\\d)?(?:0[48]|[2468][048]|' +
         '[13579][26])|(?:(?:16|[2468][048]|[3579][26])00))))$|^(?:0?[1-9]|1\\d|2[0-8])(\\/|-|\\.)(?:(?:0?[1-9])' +
         '|(?:1[0-2]))\\4(?:(?:1[6-9]|[2-9]\\d)?\\d{2})$');
     addMode = new Subject();
     dataChanges = new Subject();
-
+    resolutionChanged = new Subject();
     addWidget(newObject) {
         this.pushObjToDataArray(newObject);
         this.dataChanges.next(this.data.slice());
@@ -42,7 +43,39 @@ export class WidgetDataService {
     getData() {
        return this.httpClient.get('https://controllpanel-5c8a6.firebaseio.com/data.json');
     }
-    // Useful Functions
+    // Resolution
+    checkIfMobile() {
+        this.isMobile = window.innerWidth < 600;
+        this.resolutionChanged.next(this.isMobile);
+    }
+    // Data operation functions
+    dataNoteConversionToObject(title, content, date, id = this.getAvailableID()) {
+        const objToPush = {
+            title: title,
+            content: content,
+            date: this.dateConverter(date),
+            id: id
+        };
+            if (!date) {
+                delete objToPush['date'];
+            }
+            return objToPush;
+    }
+    getAvailableID() {
+        let odd = -1;
+        let even = -2;
+            this.data.forEach((item) => {
+                if (item.id % 2) {
+                    odd = item.id;
+                } else {
+                    even = item.id;
+                }});
+                    if (even > odd) {
+                        return (odd + 2);
+                    } else {
+                        return(even + 2);
+                    }
+    }
     dateConverter(dateString) {
         if (dateString) {
             let separator;
@@ -57,22 +90,11 @@ export class WidgetDataService {
         }
         return '';
     }
-    dataNoteConversionToObject(title, content, date) {
-        const objToPush = {
-            title: title,
-            content: content,
-            date: this.dateConverter(date)
-        };
-        if (!date) {
-            delete objToPush['date'];
-        }
-        return objToPush;
-    }
     pushObjToDataArray(objToPush) {
         if (this.data) {
             this.data.push(objToPush);
-            } else {
+        } else {
             this.data = [objToPush];
         }
-}
+    }
 }

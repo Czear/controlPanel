@@ -1,5 +1,6 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, HostListener, OnInit} from '@angular/core';
 import {WidgetDataService } from './services/widget-data.service';
+
 
 @Component({
     selector: 'app-root',
@@ -8,12 +9,16 @@ import {WidgetDataService } from './services/widget-data.service';
     providers: [WidgetDataService]
 })
 export class AppComponent implements OnInit {
+    isMobile;
     widgetData;
+    addWidgetMode;
     firstColumnWidgets = [];
     secondColumnWidgets = [];
-    addWidgetMode;
-    constructor(private widgetServiceData: WidgetDataService) {
-    }
+    constructor(private widgetServiceData: WidgetDataService) {}
+        @HostListener('window:resize', ['$event'])
+        onResize() {
+            this.widgetServiceData.checkIfMobile();
+        }
     ngOnInit() {
         this.widgetServiceData.getData()
             .subscribe(
@@ -33,23 +38,28 @@ export class AppComponent implements OnInit {
                     (data) => {
                         this.addWidgetMode = data;
                     });
+            this.widgetServiceData.resolutionChanged
+                .subscribe((isMobile) => {
+                   this.isMobile = isMobile;
+                });
+        this.widgetServiceData.checkIfMobile();
     }
     buildWidgets() {
                 this.firstColumnWidgets = [];
                 this.secondColumnWidgets = [];
                 this.widgetData.forEach((item, index) => {
                     item.index = index;
-                    if (index % 2) {
+                    if (item.id % 2) {
                         this.secondColumnWidgets.push(item);
                     } else {
                         this.firstColumnWidgets.push(item);
                     }
                 });
     }
-   isMobile() {
-        return window.innerWidth < 600;
-    }
     toggleNewWidgetForm() {
         this.widgetServiceData.toggleAddMode();
+    }
+    placeholderMethod() {
+        //
     }
 }

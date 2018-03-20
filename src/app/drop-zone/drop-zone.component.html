@@ -1,0 +1,5 @@
+<div class="dropContainer" (dragover)="$event.preventDefault()" >
+    <div class="dropZoneBody" *ngIf="isDraggedOver" (dragleave)="onDragLeave($event)">
+            <i class="fa fa-arrow-down" aria-hidden="true" (dragenter)="onDragEnter()"></i>
+    </div>
+</div>

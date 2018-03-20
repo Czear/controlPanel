@@ -14,7 +14,7 @@ export class NewWidgetFormComponent implements OnInit {
 
   ngOnInit() {
       this.WidgetForm = new FormGroup({
-          'WidgetFormTitle': new FormControl(null, Validators.required),
+          'WidgetFormTitle': new FormControl(null, [Validators.required, Validators.maxLength(100)]),
           'WidgetFormContent': new FormControl(null, Validators.required),
           'WidgetFormDate': new FormControl(null, Validators.pattern(this.widgetData.dateValidator))
       });

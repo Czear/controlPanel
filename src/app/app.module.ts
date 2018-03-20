@@ -11,6 +11,7 @@ import { ValidationIconComponent } from './validation-icon/validation-icon.compo
 import { WidgetComponent } from './widget/widget.component';
 import { NewWidgetFormComponent } from './new-widget-form/new-widget-form.component';
 import {HttpClientModule} from '@angular/common/http';
+import { DropZoneComponent } from './drop-zone/drop-zone.component';
 
 
 @NgModule({
@@ -21,7 +22,8 @@ import {HttpClientModule} from '@angular/common/http';
     NotAllowedCursorDirective,
     ValidationIconComponent,
     WidgetComponent,
-    NewWidgetFormComponent
+    NewWidgetFormComponent,
+    DropZoneComponent
   ],
   imports: [
     BrowserModule,
