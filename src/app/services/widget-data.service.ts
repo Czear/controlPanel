@@ -23,6 +23,7 @@ export class WidgetDataService {
     }
 
     removeWidget(index) {
+        this.removeDataCorrection(index);
         this.data.splice(index, 1);
         this.dataChanges.next(this.data.slice());
         this.putData().subscribe();
@@ -96,5 +97,16 @@ export class WidgetDataService {
         } else {
             this.data = [objToPush];
         }
+    }
+    removeDataCorrection(removedIndex) {
+        const REMOVED_INDEX_ITEM_ID = this.data[removedIndex].id;
+        this.data.forEach((item) => {
+           if (this.checkIfNumIsGraterAndItParity(item.id, REMOVED_INDEX_ITEM_ID)) {
+                item.id -= 2;
+           }
+        });
+    }
+    checkIfNumIsGraterAndItParity (firstNum: number, secondNum: number) {
+            return firstNum > secondNum && !! + (firstNum % 2) === !! + (secondNum % 2);
     }
 }

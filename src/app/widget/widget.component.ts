@@ -10,9 +10,10 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 })
 export class WidgetComponent implements OnInit, OnDestroy{
     isMobile;
-    editMode = false;
     mobileSubscription;
+    isMouseOverText = false;
     holdingMode = false;
+    editMode = false;
     editForm: FormGroup;
     @Input() widgetData;
     constructor(private widgetServiceData: WidgetDataService) {}
@@ -44,6 +45,10 @@ export class WidgetComponent implements OnInit, OnDestroy{
                 this.buildEditForm();
             }
         }
+        onMouseOver(event) {
+            if (event.target) {
+                this.isMouseOverText =  event.target.nodeName === 'SPAN';
+            }}
         saveEditedWidgetChanges() {
             this.toggleEditMode();
             this.widgetServiceData.editWidget(
