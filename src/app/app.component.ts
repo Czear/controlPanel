@@ -1,4 +1,4 @@
-import {Component, HostListener, OnInit} from '@angular/core';
+import {Component, HostBinding, HostListener, OnInit} from '@angular/core';
 import {WidgetDataService } from './services/widget-data.service';
 
 
@@ -15,7 +15,7 @@ export class AppComponent implements OnInit {
     firstColumnWidgets = [];
     secondColumnWidgets = [];
     constructor(private widgetServiceData: WidgetDataService) {}
-        @HostListener('window:resize', ['$event'])
+    @HostListener('window:resize', ['$event'])
         onResize() {
             this.widgetServiceData.checkIfMobile();
         }
@@ -59,7 +59,7 @@ export class AppComponent implements OnInit {
     toggleNewWidgetForm() {
         this.widgetServiceData.toggleAddMode();
     }
-    placeholderMethod() {
-        //
+    logData() {
+        console.log(this.widgetServiceData.data);
     }
 }

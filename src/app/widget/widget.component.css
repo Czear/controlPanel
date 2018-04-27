@@ -1,29 +1,78 @@
 input, textarea {
-    width: calc(95% - 45px);
+    width: calc(100% - 25px);
 }
 
-#editTitle {
-    width: calc(88% - 45px);
+label {
+    margin: 0 1.5%;
 }
 
-.card-block {
-    padding: 4%;
+.active {
+    transform: scale(0.8) rotate(45deg);
 }
 
-.dropHere {
-    height: 1%;
+.formButtons {
+    width: 100%;
+    margin: 0;
+    padding: 0.75%;
+    border:1px solid #ced4da;
+    border-bottom: none;
+    border-radius:calc(.25rem - 1px) calc(.25rem - 1px) 0 0;
+    line-height: 17px;
 }
 
-.hidden {
-    border: none;
-    background: transparent;
+.formButtons label{
     cursor: pointer;
+}
+
+.formButtons button {
+    padding: 0;
+}
+
+.card-header, .card-footer, .card-block {
+    border: 1px solid rgba(0,0,0,.125);
 }
 
 .card-content {
     white-space: pre-wrap;
 }
 
-.card-header {
-    color: white;
+
+.card-block {
+    padding: 4%;
+    border-width: 0 1px 0 1px;
+}
+
+.dropHere {
+    height: 1%;
+}
+
+.fav {
+
+    text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+    color: #ff0000;
+    cursor: default;
+}
+
+.formButtons input{
+    display: none;
+}
+
+.formButtons div {
+    padding: 0.5% 1.5%;
+    width: 50%;
+}
+
+.actionButtons {
+    text-align: right;
+}
+
+.actionButtons button{
+    border: none;
+    background: transparent;
+    color: #000000
+}
+
+.colorButtons label{
+    transition: 0.5s;
+    font-size: 17px;
 }

@@ -16,8 +16,8 @@ export class DropZoneComponent {
           let searchedIndex = 0;
           this.isDraggedOver = false;
           let identyficator = this.ID + 2;
-          const TAKEN_WIDGET_ID = parseInt(event.dataTransfer.getData('text').split('_')[1], 10);
-              if (TAKEN_WIDGET_ID !== this.ID) {
+          const TAKEN_WIDGET_ID = parseInt(event.dataTransfer.getData('number'), 10);
+              if (TAKEN_WIDGET_ID !== this.ID ) {
                this.widgetServiceData.data.forEach((item, index) => {
                     if (item.id === TAKEN_WIDGET_ID) {
                         searchedIndex = index;

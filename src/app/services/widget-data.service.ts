@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
-import {Subject} from 'rxjs/Subject';
-import {HttpClient} from '@angular/common/http';
+import { Subject } from 'rxjs/Subject';
+import { HttpClient } from '@angular/common/http';
+import { Widget } from '../widget';
 
 
 @Injectable()
@@ -16,8 +17,8 @@ export class WidgetDataService {
     addMode = new Subject();
     dataChanges = new Subject();
     resolutionChanged = new Subject();
-    addWidget(newObject) {
-        this.pushObjToDataArray(newObject);
+    addWidget(newWidget: Widget) {
+        this.pushObjToDataArray(newWidget);
         this.dataChanges.next(this.data.slice());
         this.putData().subscribe();
     }
@@ -29,8 +30,8 @@ export class WidgetDataService {
         this.putData().subscribe();
     }
 
-    editWidget(index, newObject) {
-        this.data[index] = newObject;
+    editWidget(index, newWidget: Widget) {
+        this.data[index] = newWidget;
         this.dataChanges.next(this.data.slice());
         this.putData().subscribe();
     }
@@ -50,18 +51,6 @@ export class WidgetDataService {
         this.resolutionChanged.next(this.isMobile);
     }
     // Data operation functions
-    dataNoteConversionToObject(title, content, date, id = this.getAvailableID()) {
-        const objToPush = {
-            title: title,
-            content: content,
-            date: this.dateConverter(date),
-            id: id
-        };
-            if (!date) {
-                delete objToPush['date'];
-            }
-            return objToPush;
-    }
     getAvailableID() {
         let odd = -1;
         let even = -2;

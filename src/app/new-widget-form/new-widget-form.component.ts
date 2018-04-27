@@ -21,11 +21,14 @@ export class NewWidgetFormComponent implements OnInit {
   }
     addNewWidget(form) {
       this.widgetData.toggleAddMode();
-      this.widgetData.addWidget(
-          this.widgetData.dataNoteConversionToObject(
-              form.WidgetFormTitle.value,
-              form.WidgetFormContent.value,
-              form.WidgetFormDate.value));
+      this.widgetData.addWidget({
+          title: form.WidgetFormTitle.value,
+          content: form.WidgetFormContent.value,
+          date: form.WidgetFormDate.value,
+          fav: false,
+          id: this.widgetData.getAvailableID(),
+          headerBgColor: 'dark'
+      });
     }
     closeWidgetForm() {
         this.widgetData.toggleAddMode();

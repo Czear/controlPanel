@@ -4,4 +4,7 @@
     cursor: pointer;
 }
 
+body {
+    background: linear-gradient(#f2f2f2, #ffffff) no-repeat;
+}
 

@@ -1,26 +1,38 @@
-body {
-    background-color: #e0e0e0;
-}
-
-h2{
+h2 {
     margin: auto;
 }
 
-i{
-    font-size: 35px;
+i {
+    font-size: 25px;
     cursor: pointer;
 }
 
-.row:not(:first-child){
-    filter:blur(5px);
+i:first-child, i:last-child {
+    font-size: 34px;
 }
 
-.newWidgetForm{
+nav {
+    background-color:  #f2f2f2;
+}
+
+.newWidgetForm {
+    position: fixed;
+    margin-left: 0;
     z-index: 1;
-    margin-top: 80px;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(166, 166, 166, 0.5);
 }
 
 .mobileWidget {
     margin: 3%;
     min-height: 20px;
+}
+
+@media screen and (min-width: 600px){
+    i {
+        font-size: 34px;
+    }
 }

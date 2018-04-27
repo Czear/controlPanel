@@ -8,29 +8,30 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
     templateUrl: './widget.component.html',
     styleUrls: ['./widget.component.css']
 })
-export class WidgetComponent implements OnInit, OnDestroy{
+export class WidgetComponent implements OnInit, OnDestroy {
+    @Input() widgetData;
     isMobile;
-    mobileSubscription;
+    resolutionSubscription;
     isMouseOverText = false;
     holdingMode = false;
     editMode = false;
+    colorsClasses = ['primary', 'success', 'warning', 'danger', 'secondary', 'dark'];
     editForm: FormGroup;
-    @Input() widgetData;
     constructor(private widgetServiceData: WidgetDataService) {}
     ngOnInit() {
-        this.mobileSubscription = this.widgetServiceData.resolutionChanged
+        this.resolutionSubscription = this.widgetServiceData.resolutionChanged
             .subscribe((isMobile) => {
                 this.isMobile = isMobile;
         });
         this.widgetServiceData.checkIfMobile();
     }
     ngOnDestroy() {
-        this.mobileSubscription.unsubscribe();
+        this.resolutionSubscription.unsubscribe();
     }
     @HostListener('dragstart', ['$event'])
     onDrag(event) {
         this.holdingMode = true;
-        event.dataTransfer.setData('text', event.target.id);
+        event.dataTransfer.setData('number', this.widgetData.id);
     }
     @HostListener('dragend', ['$event'])
     onDragEnd() {
@@ -52,12 +53,13 @@ export class WidgetComponent implements OnInit, OnDestroy{
         saveEditedWidgetChanges() {
             this.toggleEditMode();
             this.widgetServiceData.editWidget(
-                this.widgetData.index,
-                this.widgetServiceData.dataNoteConversionToObject(
-                    this.editForm.get('editTitle').value,
-                    this.editForm.get('editContent').value,
-                    this.editForm.get('editDate').value,
-                    this.widgetData.id));
+                this.widgetData.index, {
+                    title: this.editForm.get('editTitle').value,
+                    content: this.editForm.get('editContent').value,
+                    date: this.editForm.get('editDate').value,
+                    fav: this.editForm.get('fav').value,
+                    id: this.widgetData.id,
+                    headerBgColor: this.editForm.get('headerBgColor').value});
         }
         buildEditForm() {
             this.editForm = new FormGroup({
@@ -65,7 +67,9 @@ export class WidgetComponent implements OnInit, OnDestroy{
                 'editContent': new FormControl(this.widgetData.content, Validators.required),
                 'editDate': new FormControl(
                     this.widgetServiceData.dateConverter(this.widgetData.date),
-                    Validators.pattern(this.widgetServiceData.dateValidator))
+                    Validators.pattern(this.widgetServiceData.dateValidator)),
+                'fav': new FormControl(this.widgetData.fav),
+                'headerBgColor': new FormControl(this.widgetData.headerBgColor)
             });
         }
 }
