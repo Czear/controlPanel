@@ -13,33 +13,32 @@ export class WidgetDataService {
     dateValidator = new RegExp('^(?:(?:31(\\/|-|\\.)(?:0?[13578]|1[02]))\\1|(?:(?:29|30)(\\/|-|\\.)' +
         '(?:0?[1,3-9]|1[0-2])\\2))(?:(?:1[6-9]|[2-9]\\d)?\\d{2})$|^(?:29(\\/|-|\\.)0?2\\3(?:(?:(?:1[6-9]|[2-9]\\d)?(?:0[48]|[2468][048]|' +
         '[13579][26])|(?:(?:16|[2468][048]|[3579][26])00))))$|^(?:0?[1-9]|1\\d|2[0-8])(\\/|-|\\.)(?:(?:0?[1-9])' +
-        '|(?:1[0-2]))\\4(?:(?:1[6-9]|[2-9]\\d)?\\d{2})$');
+        '|(?:1[0-2]))\\4(?:(?:1[0-9]|[2-9]\\d)?\\d{2})$');
     addMode = new Subject();
-    dataChanges = new Subject();
+    dataChanged = new Subject();
     resolutionChanged = new Subject();
     addWidget(newWidget: Widget) {
         this.pushObjToDataArray(newWidget);
-        this.dataChanges.next(this.data.slice());
         this.putData().subscribe();
     }
 
     removeWidget(index) {
         this.removeDataCorrection(index);
         this.data.splice(index, 1);
-        this.dataChanges.next(this.data.slice());
         this.putData().subscribe();
     }
 
     editWidget(index, newWidget: Widget) {
         this.data[index] = newWidget;
-        this.dataChanges.next(this.data.slice());
         this.putData().subscribe();
     }
     toggleAddMode() {
         this.addWidgetMode = !this.addWidgetMode;
         this.addMode.next(this.addWidgetMode);
     }
-    putData() {
+    putData(dataRefreshIsNeeded = true) {
+        this.dataChanged.next(this.data);
+        this.data[0].refreshIsNeeded = dataRefreshIsNeeded;
         return this.httpClient.put('https://controllpanel-5c8a6.firebaseio.com/data.json', this.data);
     }
     getData() {
@@ -54,12 +53,13 @@ export class WidgetDataService {
     getAvailableID() {
         let odd = -1;
         let even = -2;
+        if (this.data) {
             this.data.forEach((item) => {
                 if (item.id % 2) {
                     odd = item.id;
                 } else {
                     even = item.id;
-                }});
+                }})}
                     if (even > odd) {
                         return (odd + 2);
                     } else {
@@ -90,12 +90,12 @@ export class WidgetDataService {
     removeDataCorrection(removedIndex) {
         const REMOVED_INDEX_ITEM_ID = this.data[removedIndex].id;
         this.data.forEach((item) => {
-           if (this.checkIfNumIsGraterAndItParity(item.id, REMOVED_INDEX_ITEM_ID)) {
+           if (this.checkIfNumIsGraterAndItsParity(item.id, REMOVED_INDEX_ITEM_ID)) {
                 item.id -= 2;
            }
         });
     }
-    checkIfNumIsGraterAndItParity (firstNum: number, secondNum: number) {
+    checkIfNumIsGraterAndItsParity (firstNum: number, secondNum: number) {
             return firstNum > secondNum && !! + (firstNum % 2) === !! + (secondNum % 2);
     }
 }

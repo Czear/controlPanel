@@ -1,4 +1,4 @@
-import {Component, HostBinding, HostListener, OnInit} from '@angular/core';
+import {Component, HostListener, OnInit} from '@angular/core';
 import {WidgetDataService } from './services/widget-data.service';
 
 
@@ -20,14 +20,19 @@ export class AppComponent implements OnInit {
             this.widgetServiceData.checkIfMobile();
         }
     ngOnInit() {
-        this.widgetServiceData.getData()
-            .subscribe(
-                (result: Array<any>) => {
-                    this.widgetServiceData.data = result;
-                    this.widgetData = this.widgetServiceData.data;
-                    if (this.widgetData) this.buildWidgets();
-                });
-            this.widgetServiceData.dataChanges
+        setInterval(() => {
+            this.widgetServiceData.getData()
+                .subscribe(
+                    (result: Array<any>) => {
+                        if (result[0].refreshIsNeeded || !this.widgetData) {
+                            this.widgetServiceData.data = result;
+                            this.widgetData = result;
+                            if (this.widgetData) this.buildWidgets();
+                            this.widgetServiceData.putData(false).subscribe();
+                        }
+                    });
+        }, 500);
+            this.widgetServiceData.dataChanged
                 .subscribe(
                     (data) => {
                         this.widgetData = data;
@@ -43,7 +48,7 @@ export class AppComponent implements OnInit {
                    this.isMobile = isMobile;
                 });
         this.widgetServiceData.checkIfMobile();
-    }
+           }
     buildWidgets() {
                 this.firstColumnWidgets = [];
                 this.secondColumnWidgets = [];

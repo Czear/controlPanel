@@ -17,11 +17,11 @@
 
         <div class="row justify-content-center" id="content">
                 <div class="col-5" *ngIf="!isMobile">
-                    <app-drop-zone class="topDropZones" [ID]="-2"></app-drop-zone>
+                    <app-drop-zone class="topDropZones" [dropzoneID]="-2"></app-drop-zone>
                     <app-widget *ngFor="let widget of firstColumnWidgets" [widgetData]="widget"></app-widget>
                 </div>
                 <div class="col-5" *ngIf="!isMobile">
-                    <app-drop-zone class="topDropZones" [ID]="-1"></app-drop-zone>
+                    <app-drop-zone class="topDropZones" [dropzoneID]="-1"></app-drop-zone>
                     <app-widget *ngFor="let widget of secondColumnWidgets" [widgetData]="widget"></app-widget>
                 </div>
                 <div class="col-9" *ngIf="isMobile">
