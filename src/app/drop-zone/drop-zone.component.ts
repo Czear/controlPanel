@@ -10,6 +10,7 @@ export class DropZoneComponent {
   constructor(private widgetServiceData: WidgetDataService) { }
   @Input() dropzoneID;
   isDraggedOver = false;
+  bgColor;
   @HostListener('drop', ['$event'])
       onDrop(event) {
           event.preventDefault();
@@ -42,10 +43,16 @@ export class DropZoneComponent {
                      this.widgetServiceData.putData().subscribe();
               }
       }
-  onDragOver (event) {
-      event.preventDefault();
-      this.isDraggedOver = true;
+      
+  onDragOver(event) {
+    event.preventDefault();
   }
+
+  onDragEnter(event){
+    this.isDraggedOver = true;
+    this.bgColor = this.widgetServiceData.dropzoneColor;
+  }
+
   onDragLeave(event) {
       if (event.relatedTarget && event.target) { // To prevent errors
           if (event.relatedTarget.classList[0] !== 'doNotLeave' && event.target.nodeName === 'DIV') {
@@ -53,9 +60,11 @@ export class DropZoneComponent {
               }
       }
   }
+
   numbersParity(firstNum, secondNum) {
       return (!! + (firstNum % 2) === !! + (secondNum % 2));
   }
+
   sortWidgets() {
       this.widgetServiceData.data.sort(function (a, b) {
           if (a.id < b.id) {

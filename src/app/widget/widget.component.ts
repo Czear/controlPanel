@@ -31,6 +31,7 @@ export class WidgetComponent implements OnInit, OnDestroy {
     @HostListener('dragstart', ['$event'])
     onDrag(event) {
         this.holdingMode = true;
+        this.widgetServiceData.dropzoneColor = this.widgetData.headerBgColor;
         event.dataTransfer.setData('number', this.widgetData.id);
     }
     @HostListener('dragend', ['$event'])

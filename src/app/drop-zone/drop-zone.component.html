@@ -1,5 +1,5 @@
-<div class="dropContainer" (dragover)="onDragOver($event)"  >
-    <div class="dropZoneBody" *ngIf="isDraggedOver" (dragleave)="onDragLeave($event)">
+<div class="dropContainer" (dragover)="onDragOver($event)" (dragenter)='onDragEnter($event)'>
+    <div class="dropZoneBody bg-{{bgColor}}" *ngIf="isDraggedOver" (dragleave)="onDragLeave($event)">
             <i class="doNotLeave fa fa-chevron-circle-down" aria-hidden="true"></i>
     </div>
 </div>
